@@ -1,0 +1,37 @@
+name: CI de Prueba Franklin
+# 1. TRIGGER (El disparador)
+# Esto responde a la pregunta: "¿Cuándo se ejecuta?"
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  # Este permite ejecutarlo manualmente desde la pestaña Actions (¡Muy útil para probar!)
+  workflow_dispatch:
+
+# 2. JOBS (Las tareas)
+jobs:
+  build-y-test:
+    # 3. RUNNER (El servidor)
+    # "¿Dónde corre esto?" -> En una máquina virtual Linux de GitHub
+    runs-on: ubuntu-latest
+
+    steps:
+      # Paso A: Descargar tu código al servidor (Action oficial)
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      # Paso B: Ejecutar un comando simple de Linux
+      - name: Saludar al equipo
+        run: echo "¡Hola Franklin! El workflow ha iniciado correctamente."
+
+      # Paso C: Listar archivos (Para ver que el Checkout funcionó)
+      - name: Ver archivos del repo
+        run: ls -la
+
+      # Paso D: Simular un test (Esto imprime éxito)
+      - name: Correr Test Simulado
+        run: |
+          echo "Ejecutando pruebas..."
+          sleep 2
+          echo "✅ Pruebas pasadas exitosamente."
